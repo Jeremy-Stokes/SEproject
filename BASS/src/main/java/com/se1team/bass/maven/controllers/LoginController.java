@@ -13,19 +13,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 
-public class FXMLController implements Initializable {
+public class LoginController implements Initializable {
     
     @FXML
     private Label label;
     
     @FXML
-    private void handleButtonAction(ActionEvent event) throws SQLException {
+    private void handleLoginAction(ActionEvent event) throws SQLException {
         System.out.println("You clicked me!");
-        label.setText("Hello World!");
-         DbConnection dc = new DbConnection();
+        //label.setText("Hello World!");
+        DbConnection dc = new DbConnection();
         Connection conn = dc.Connect();
         Statement stmt = conn.createStatement() ;
-        String query = "select * from table1;" ;
+        String query = "select * from users;" ;
         ResultSet rs = stmt.executeQuery(query) ;
         while(rs.next())
         {
