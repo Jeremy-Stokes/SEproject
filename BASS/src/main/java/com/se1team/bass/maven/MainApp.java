@@ -17,7 +17,7 @@ public class MainApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
+        scene.getStylesheets().add("/styles/login.css");
         
         stage.setTitle("Login");
         stage.getIcons().add(new Image("/images/BASS icon.jpg"));
