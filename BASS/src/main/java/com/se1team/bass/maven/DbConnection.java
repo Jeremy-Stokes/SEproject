@@ -18,14 +18,13 @@ import java.util.logging.Logger;
 public class DbConnection {
     public Connection Connect(){
         try{
-            String url = "jdbc:mysql://google/schema1?cloudSqlInstance="
-                    + "inspired-alcove-149805:us-central1:bass-db&socketFactory=com.google.cloud.sql.mysql."
-                    + "SocketFactory";
-            String user = "root";
+            String url = "jdbc:mysql://bass-rds.c8q0vfhmcvye.us-east-1.rds.amazonaws.com:3306/schema1";
+            String user = "se1project";
             String password = "se1project";
             
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn=DriverManager.getConnection(url, user, password);
+            
             return conn;
             
         } catch(ClassNotFoundException ex){

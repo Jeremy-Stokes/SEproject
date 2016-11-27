@@ -24,6 +24,7 @@ public class LoginController implements Initializable {
         //label.setText("Hello World!");
         DbConnection dc = new DbConnection();
         Connection conn = dc.Connect();
+        System.out.println("Connected");
         Statement stmt = conn.createStatement() ;
         String query = "select * from users;" ;
         ResultSet rs = stmt.executeQuery(query) ;
