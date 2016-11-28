@@ -21,7 +21,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import java.math.BigDecimal;
 
 /**
  * FXML Controller class
@@ -29,7 +32,9 @@ import javafx.scene.control.TextField;
  * @author dcart_000
  */
 public class AccountsController implements Initializable {
-
+    
+    @FXML
+    private TextField amount_text;
     @FXML
     private TextField search_text;
     @FXML
@@ -54,6 +59,13 @@ public class AccountsController implements Initializable {
     private Label payment_due_label;
     @FXML
     private Label due_date_label;
+    @FXML
+    private RadioButton withdrawButton;
+    @FXML
+    private RadioButton depositButton;
+    @FXML
+    private ToggleGroup accountButtons;
+            
     private ResultSet rs = null;
     /**
      * Initializes the controller class.
@@ -63,6 +75,66 @@ public class AccountsController implements Initializable {
         // TODO
     }    
     
+    @FXML
+    private void handleProcess(ActionEvent event) throws IOException{
+        String resultSt;
+        String transType;
+        String transName;
+        BigDecimal amount = new BigDecimal(amount_text.getText());
+        BigDecimal balance = new BigDecimal(balance_label.getText());
+        BigDecimal result;
+        
+        if(withdrawButton.isSelected()){
+            result = balance.subtract(amount);
+            resultSt = result.toString();
+            balance_label.setText(resultSt);
+            transType = "W";
+            transName = "Withdraw";
+        }
+        else{
+            result = balance.add(amount);
+            resultSt = result.toString();
+            balance_label.setText(resultSt);
+            transType = "D";
+            transName = "Deposit";
+        }
+        DbConnection dc = new DbConnection();
+        Connection conn = dc.Connect();
+        Statement stmt = null;
+        Statement stmt2 = null;
+        String query = null;
+        String query2 = null;
+        
+        try{
+            stmt = conn.createStatement();
+            //query = "SELECT * FROM users;";
+            query = "UPDATE account SET balance='" + result + "' WHERE account_number=(\""
+                    + account_number_label.getText()+ "\");";
+            stmt.executeUpdate(query);
+            stmt2 = conn.createStatement();
+            query2 = "INSERT INTO transaction(transaction_type, transaction_name,"
+                    + " amount, modified_date, t_user_id) values"+
+                    "(\""+ transType +"\", \""+ transName +"\", "+ result +
+                    ", now(), 1);";
+            stmt2.executeUpdate(query2);
+        } catch(SQLException ex){
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {               
+                if (rs != null)
+                    rs.close();  
+                if (stmt != null)
+                    stmt.close();
+                if (stmt2 != null)
+                    stmt2.close();
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException ex) {                
+                Logger.getLogger(LoginController.class.getName()).
+                        log(Level.WARNING, ex.getMessage(), ex);                
+            }
+        } 
+    }
     @FXML
     private void handleAccountChangeAction(ActionEvent event) throws IOException{
         

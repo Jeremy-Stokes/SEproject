@@ -103,7 +103,7 @@
                   <Insets />
                </opaqueInsets>
             </VBox>
-            <Button layoutX="14.0" layoutY="422.0" mnemonicParsing="false" onAction="#handleBackToAccounts" text="Back to Accounts" />
+            <Button layoutX="14.0" layoutY="422.0" mnemonicParsing="false" fx:id="back_to_accounts_button" onAction="#handleBackToAccounts" text="Back to Accounts" />
          </children>
       </Pane>
    </left>
