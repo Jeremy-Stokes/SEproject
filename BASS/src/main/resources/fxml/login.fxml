@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="454.0" style="-fx-background-color: #42bcf4;" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se1team.bass.maven.controllers.LoginController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="454.0" style="-fx-background-color: #42bcf4;" stylesheets="@../styles/login.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se1team.bass.maven.controllers.LoginController">
     <children>
         <Button id="login_button" fx:id="login_button" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="238.0" onAction="#handleLoginAction" stylesheets="@../styles/login.css" text="Login" />
         <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" layoutX="194.0" layoutY="84.0" minHeight="-Infinity" minWidth="-Infinity" text="BASS" textFill="WHITE">

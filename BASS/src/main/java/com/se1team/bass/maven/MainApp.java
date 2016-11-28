@@ -19,7 +19,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/login.css");
         
-        stage.setTitle("Login");
+        stage.setTitle("BASS");
         stage.getIcons().add(new Image("/images/BASS icon.jpg"));
         stage.setScene(scene);
         stage.show();

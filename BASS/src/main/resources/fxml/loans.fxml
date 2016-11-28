@@ -1,11 +1,226 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-    
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.LoansController">
+   <left>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <TitledPane animated="false" prefHeight="134.0" prefWidth="202.0" text="Summary">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="111.0" prefWidth="200.0">
+                     <children>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="121.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="79.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Total intrest" />
+                              <Label text="Total amount" GridPane.rowIndex="1" />
+                              <Label text="Monthly Payments" GridPane.rowIndex="2" />
+                              <Label fx:id="total_interest_label" GridPane.columnIndex="1" />
+                              <Label fx:id="total_amount_label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="monthly_payments_label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Customer">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="108.0" prefWidth="192.0">
+                     <children>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Name" />
+                              <Label text="Account ID" GridPane.rowIndex="1" />
+                              <Label text="Email Address" GridPane.rowIndex="2" />
+                              <Label fx:id="name_label" GridPane.columnIndex="1" />
+                              <Label fx:id="account_id_label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="email_label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </TitledPane>
+         </children>
+         <padding>
+            <Insets left="15.0" right="15.0" top="20.0" />
+         </padding>
+      </VBox>
+   </left>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <VBox prefHeight="399.0" prefWidth="422.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Loan">
+               <font>
+                  <Font size="26.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" top="5.0" />
+               </padding>
+            </Label>
+            <Separator prefHeight="0.0" prefWidth="368.0" style="-fx-background-color: black;" />
+            <GridPane layoutX="10.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="234.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="228.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Loan Amount" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <TextField fx:id="loan_textfield" onKeyTyped="#handleLoanChange" prefHeight="25.0" prefWidth="69.0">
+                           <HBox.margin>
+                              <Insets top="2.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label alignment="CENTER" prefHeight="22.0" prefWidth="23.0" text="\$">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </GridPane>
+            <Separator layoutX="10.0" layoutY="27.0" prefWidth="200.0" />
+            <GridPane layoutX="10.0" layoutY="30.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="242.0" minWidth="10.0" prefWidth="232.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.0" minWidth="10.0" prefWidth="230.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Interest" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <TextField fx:id="interest_textfield" onKeyTyped="#handleInterestChange" prefHeight="25.0" prefWidth="42.0">
+                           <HBox.margin>
+                              <Insets top="2.0" />
+                           </HBox.margin></TextField>
+                        <Label alignment="CENTER" prefHeight="22.0" prefWidth="21.0" text="\%">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </GridPane>
+            <Separator layoutX="10.0" layoutY="123.0" prefWidth="200.0" />
+            <GridPane layoutX="10.0" layoutY="126.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="232.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="230.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Loan Term" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <TextField fx:id="loan_term_textfield" onKeyTyped="#handleTermChange" prefHeight="27.0" prefWidth="34.0">
+                           <HBox.margin>
+                              <Insets top="2.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label alignment="CENTER" prefHeight="22.0" prefWidth="54.0" text="Months">
+                           <padding>
+                              <Insets left="5.0" top="5.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </GridPane>
+            <Separator layoutX="10.0" layoutY="216.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <Button fx:id="accept_button" mnemonicParsing="false" onAction="#handleAcceptAction" text="Accept" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="25.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>

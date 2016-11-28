@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,8 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="468.0" prefWidth="684.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.se1team.bass.maven.controllers.AccountsController">
    <children>
       <MenuBar>
         <menus>
@@ -36,23 +38,59 @@
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="View">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.28" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.29" VBox.vgrow="ALWAYS">
          <items>
-            <VBox prefHeight="375.0" prefWidth="133.0">
+            <VBox maxWidth="600.0" prefHeight="441.0" prefWidth="163.0" spacing="10.0">
                <children>
-                  <HBox prefHeight="25.0" prefWidth="100.0">
+                  <HBox maxWidth="600.0" prefHeight="25.0" prefWidth="600.0">
                      <children>
-                        <TextField fx:id="search_text" promptText="Search..." />
-                        <Button fx:id="search_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Go" />
+                        <TextField fx:id="search_text" prefHeight="25.0" prefWidth="111.0" promptText="Search Customer...">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></TextField>
+                        <Button fx:id="search_button" mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="25.0" prefWidth="81.0" text="Go" />
                      </children>
                   </HBox>
-                  <TextArea fx:id="text_area" editable="false" prefHeight="263.0" prefWidth="210.0" VBox.vgrow="ALWAYS" />
-                  <TextField fx:id="command_text" prefHeight="25.0" prefWidth="177.0" promptText="..." />
+                  <HBox>
+                     <children>
+                        <ChoiceBox fx:id="account_choice" prefHeight="25.0" prefWidth="111.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></ChoiceBox>
+                        <Button fx:id="accountButton" mnemonicParsing="false" onAction="#handleAccountChangeAction" text="Get Account" />
+                     </children>
+                  </HBox>
+                  <Region VBox.vgrow="ALWAYS" />
+                  <Separator prefWidth="200.0" />
+                  <RadioButton fx:id="withdrawButton" mnemonicParsing="false" selected="true" text="Withdraw">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="accountButtons" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="depositButton" mnemonicParsing="false" text="Deposit" toggleGroup="$accountButtons" />
+                  <HBox prefHeight="31.0" prefWidth="175.0">
+                     <children>
+                        <TextField fx:id="amount_text" prefHeight="25.0" prefWidth="76.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#handleProcess" text="Process" />
+                     </children>
+                  </HBox>
                </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
             </VBox>
-            <VBox prefHeight="375.0" prefWidth="382.0">
+            <VBox prefHeight="450.0" prefWidth="434.0">
                <children>
                   <Region prefHeight="24.0" prefWidth="467.0" />
                   <Separator prefHeight="0.0" prefWidth="467.0" />
@@ -116,6 +154,9 @@
                      </children>
                   </GridPane>
                </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
             </VBox>
          </items>
       </SplitPane>
