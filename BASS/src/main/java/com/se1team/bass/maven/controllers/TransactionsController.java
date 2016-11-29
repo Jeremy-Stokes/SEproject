@@ -49,9 +49,9 @@ public class TransactionsController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    /**@Override
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String accountInfo = account_choice.getValue();
+        /**String accountInfo = account_choice.getValue();
         System.out.println(accountInfo);
         DbConnection dc = new DbConnection();
         Connection conn = dc.Connect();
@@ -88,8 +88,8 @@ public class TransactionsController implements Initializable {
                 Logger.getLogger(LoginController.class.getName()).
                         log(Level.WARNING, ex.getMessage(), ex);                
             }
-        } 
-    }  */  
+        } */
+    }    
     
     @FXML
     private void handleBackToAccounts(ActionEvent event) throws IOException{
