@@ -17,7 +17,7 @@
    <left>
       <Pane BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="14.0" layoutY="21.0" prefHeight="167.0" prefWidth="194.0" style="-fx-border-style: solid inside;">
+            <VBox layoutX="14.0" layoutY="21.0" prefHeight="167.0" prefWidth="243.0" style="-fx-border-style: solid inside;">
                <children>
                   <Label style="-fx-font-weight: BOLD;" text="Current Account Summary">
                      <opaqueInsets>
@@ -37,8 +37,8 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Account ID" />
-                        <Label fx:id="account_id_label" GridPane.columnIndex="1" />
+                        <Label prefHeight="17.0" prefWidth="99.0" text="Account Number" />
+                        <Label fx:id="account_number_label" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                   <Separator prefWidth="200.0" />

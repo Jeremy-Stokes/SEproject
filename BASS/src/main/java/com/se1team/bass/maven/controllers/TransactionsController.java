@@ -35,7 +35,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class TransactionsController implements Initializable {
 
     @FXML
-    private Label account_id_label;
+    private Label account_number_label;
     @FXML
     private Label balance_label;
     @FXML
@@ -59,6 +59,7 @@ public class TransactionsController implements Initializable {
     private DbConnection dc;
     private Connection conn;
     private Statement stmt;
+    
 
     /**
      * Initializes the controller class.
@@ -69,9 +70,10 @@ public class TransactionsController implements Initializable {
 
     }    
      
-    public void getAccoutInfo(String accountType, String accountNumber, String balance){
+    public void getAccoutInfo(String accountType, String accountNumber, 
+            String balance){
         account_type_label.setText(accountType);
-        account_id_label.setText(accountNumber);
+        account_number_label.setText(accountNumber);
         balance_label.setText(balance);
     }   
     
@@ -86,8 +88,10 @@ public class TransactionsController implements Initializable {
         try{
             stmt = conn.createStatement();
             //query = "SELECT * FROM users;";
-            query = "SELECT * "
-                    + "FROM transaction where account_id=\"" + 1 + "\";";
+            query = "SELECT user_name, t.* FROM transaction t, users u, account a"
+                    + " where t_user_id=user_id and a.account_id=t.account_id "
+                    + "and a.account_number=\""+ account_number_label.getText()
+                    +"\" and user;";
             
             rs = stmt.executeQuery(query);
             
@@ -122,16 +126,16 @@ public class TransactionsController implements Initializable {
             transaction_table.setItems(transList);
         } 
     }
-    @FXML
-    private void handleBackToAccounts(ActionEvent event) throws IOException{
-//        Stage stage;
-//        Parent root;
-//        
-//        stage = (Stage) login_button.getScene().getWindow();
-//        root = FXMLLoader.load(getClass().getResource("/fxml/accounts.fxml"));
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene); 
-//        stage.show();
-    }
+//    @FXML
+//    private void handleBackToAccounts(ActionEvent event) throws IOException{
+////        Stage stage;
+////        Parent root;
+////        
+////        stage = (Stage) login_button.getScene().getWindow();
+////        root = FXMLLoader.load(getClass().getResource("/fxml/accounts.fxml"));
+////        Scene scene = new Scene(root);
+////        stage.setScene(scene); 
+////        stage.show();
+//    }
     
 }
