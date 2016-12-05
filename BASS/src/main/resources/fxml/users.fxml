@@ -33,28 +33,28 @@
             <Insets bottom="10.0" top="5.0" />
          </padding>
       </HBox>
-      <SplitPane dividerPositions="0.4" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.29" VBox.vgrow="ALWAYS">
          <items>
             <VBox maxWidth="600.0" prefHeight="441.0" prefWidth="163.0" spacing="10.0">
                <children>
                   <HBox maxWidth="600.0" prefHeight="25.0" prefWidth="600.0">
                      <children>
-                        <TextField fx:id="search_text" prefHeight="25.0" prefWidth="133.0" promptText="Search Customer...">
+                        <TextField fx:id="search_text" prefHeight="25.0" prefWidth="111.0" promptText="Search Customer...">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="search_button" mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="25.0" prefWidth="91.0" text="Go" />
+                        <Button fx:id="search_button" mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="25.0" prefWidth="81.0" text="Go" />
                      </children>
                   </HBox>
                   <HBox>
                      <children>
-                        <ChoiceBox fx:id="account_choice" prefHeight="25.0" prefWidth="133.0">
+                        <ChoiceBox fx:id="account_choice" prefHeight="25.0" prefWidth="111.0">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </ChoiceBox>
-                        <Button fx:id="accountButton" mnemonicParsing="false" onAction="#handleAccountChangeAction" prefHeight="25.0" prefWidth="91.0" text="Get Account" />
+                        <Button fx:id="accountButton" mnemonicParsing="false" onAction="#handleAccountChangeAction" text="Get Account" />
                      </children>
                   </HBox>
                   <Region VBox.vgrow="ALWAYS" />
@@ -148,19 +148,14 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Separator>
-                  <HBox prefHeight="25.0" prefWidth="209.0">
+                  <HBox>
                      <children>
-                        <ChoiceBox fx:id="page_choice" prefHeight="25.0" prefWidth="113.0" />
+                        <ChoiceBox fx:id="page_choice" prefWidth="150.0" />
                         <Button fx:id="go_to_button" mnemonicParsing="false" onAction="#handleGoToAction" text="Go To..">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Label fx:id="go_to_label" prefHeight="21.0" prefWidth="167.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </Label>
                      </children>
                   </HBox>
                </children>

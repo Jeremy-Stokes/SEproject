@@ -25,6 +25,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import java.math.BigDecimal;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -40,7 +44,11 @@ public class AccountsController implements Initializable {
     @FXML
     private Button search_button;
     @FXML
+    private Button go_to_button;
+    @FXML
     private ChoiceBox<String> account_choice;
+    @FXML
+    private ChoiceBox<String> page_choice;
     @FXML
     private Label account_name;
     @FXML
@@ -60,6 +68,8 @@ public class AccountsController implements Initializable {
     @FXML
     private Label due_date_label;
     @FXML
+    private Label go_to_label;
+    @FXML
     private RadioButton withdrawButton;
     @FXML
     private RadioButton depositButton;
@@ -73,7 +83,46 @@ public class AccountsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+        page_choice.getItems().add("Transactions");
+        page_choice.getItems().add("Users");
+        
+    }  
+    
+    @FXML
+    private void handleGoToAction(ActionEvent event) throws IOException{
+        String pageChoice = page_choice.getValue();
+        String pageName = "";
+        Stage stage = new Stage();
+        Parent root;
+        
+        if (account_number_label.getText().isEmpty()){
+            go_to_label.setText("Please select an account first!");
+            return;
+        }
+        if(pageChoice.equals("Transactions"))
+            pageName = "/fxml/transactions.fxml";
+        else if(pageChoice.equals("Users"))
+            pageName = "/fxml/users.fxml";
+        else{
+            go_to_label.setText("Please select an appropriate value!");
+            return;
+        }
+                   
+//        try{
+            System.out.println(""+ accout_type_label.getText()+ 
+                    account_number_label.getText()+ balance_label.getText());
+            FXMLLoader loader = new FXMLLoader();
+            root = loader.load(getClass().getResource(pageName).openStream());
+            TransactionsController transController = (TransactionsController)loader.getController();
+            transController.getAccoutInfo(accout_type_label.getText(),
+                account_number_label.getText(), balance_label.getText());
+            Scene scene = new Scene(root);
+            stage.setScene(scene); 
+            stage.show();
+//        }catch(NullPointerException ex){
+//            go_to_label.setText("Please select an account first");
+//        }
+    }
     
     @FXML
     private void handleProcess(ActionEvent event) throws IOException{
@@ -135,6 +184,7 @@ public class AccountsController implements Initializable {
             }
         } 
     }
+    
     @FXML
     private void handleAccountChangeAction(ActionEvent event) throws IOException{
         

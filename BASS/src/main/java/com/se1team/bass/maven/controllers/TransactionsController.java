@@ -6,6 +6,7 @@
 package com.se1team.bass.maven.controllers;
 
 import com.se1team.bass.maven.DbConnection;
+import com.se1team.bass.maven.Transaction;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -15,16 +16,16 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -42,36 +43,57 @@ public class TransactionsController implements Initializable {
     @FXML
     private Label main_transaction_label;
     @FXML
-    private TableView<?> transaction_table;
+    private TableView<Transaction> transaction_table;
+    @FXML
+    private TableColumn<Transaction, String> creatorColumn;
+    @FXML
+    private TableColumn<Transaction, String> dateColumn;
+    @FXML
+    private TableColumn<Transaction, String> amountColumn;
+    @FXML
+    private TableColumn<Transaction, String> nameColumn;
     @FXML
     private Button back_to_accounts_button;
+    
+    private ObservableList<Transaction> transList;
+    private DbConnection dc;
+    private Connection conn;
+    private Statement stmt;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /**String accountInfo = account_choice.getValue();
-        System.out.println(accountInfo);
-        DbConnection dc = new DbConnection();
-        Connection conn = dc.Connect();
-        Statement stmt = null;
+        getTransactionHistory();
+
+    }    
+     
+    public void getAccoutInfo(String accountType, String accountNumber, String balance){
+        account_type_label.setText(accountType);
+        account_id_label.setText(accountNumber);
+        balance_label.setText(balance);
+    }   
+    
+    private void getTransactionHistory() {
+        dc = new DbConnection();
+        conn = dc.Connect();
+        stmt = null;
         String query = null;
-        ResultSet rs;
+        ResultSet rs = null;
+        transList = FXCollections.observableArrayList();
         
         try{
             stmt = conn.createStatement();
             //query = "SELECT * FROM users;";
-            query = "SELECT account_number, account_type, balance "
-                    + "FROM account where account_type=\"" + accountInfo + "\";";
+            query = "SELECT * "
+                    + "FROM transaction where account_id=\"" + 1 + "\";";
             
             rs = stmt.executeQuery(query);
             
             while(rs.next()){
-                accout_type_label.setText(rs.getString(2));
-                account_number_label.setText(rs.getString(1));
-                balance_label.setText(rs.getString(3));
-                pending_transaction_label.setText("0.0");
+                transList.add(new Transaction(rs.getString(6), rs.getString(5),
+                        rs.getString(4), rs.getString(3)));
             }
                                   
         } catch(SQLException ex){
@@ -88,18 +110,28 @@ public class TransactionsController implements Initializable {
                 Logger.getLogger(LoginController.class.getName()).
                         log(Level.WARNING, ex.getMessage(), ex);                
             }
-        } */
-    }    
-    
+            creatorColumn.setCellValueFactory(
+                    new PropertyValueFactory<Transaction, String>("creator"));
+            dateColumn.setCellValueFactory(
+                    new PropertyValueFactory<Transaction, String>("transDate"));
+            amountColumn.setCellValueFactory(
+                    new PropertyValueFactory<Transaction, String>("amount"));
+            nameColumn.setCellValueFactory(
+                    new PropertyValueFactory<Transaction, String>("transName"));
+            
+            transaction_table.setItems(transList);
+        } 
+    }
     @FXML
     private void handleBackToAccounts(ActionEvent event) throws IOException{
-        Stage stage;
-        Parent root;
-        
-        stage = (Stage) back_to_accounts_button.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/fxml/accounts.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene); 
-        stage.show();
+//        Stage stage;
+//        Parent root;
+//        
+//        stage = (Stage) login_button.getScene().getWindow();
+//        root = FXMLLoader.load(getClass().getResource("/fxml/accounts.fxml"));
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene); 
+//        stage.show();
     }
+    
 }
