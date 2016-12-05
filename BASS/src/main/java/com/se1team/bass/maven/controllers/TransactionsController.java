@@ -6,7 +6,7 @@
 package com.se1team.bass.maven.controllers;
 
 import com.se1team.bass.maven.DbConnection;
-import com.se1team.bass.maven.Transaction;
+import com.se1team.bass.maven.models.Transaction;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -52,29 +52,28 @@ public class TransactionsController implements Initializable {
     private TableColumn<Transaction, String> amountColumn;
     @FXML
     private TableColumn<Transaction, String> nameColumn;
-    @FXML
-    private Button back_to_accounts_button;
     
     private ObservableList<Transaction> transList;
     private DbConnection dc;
     private Connection conn;
     private Statement stmt;
-    
+    private static String accountNum;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        getTransactionHistory();
+    public void initialize(URL url, ResourceBundle rb) {  
 
     }    
      
     public void getAccoutInfo(String accountType, String accountNumber, 
             String balance){
+        accountNum = accountNumber;
         account_type_label.setText(accountType);
         account_number_label.setText(accountNumber);
         balance_label.setText(balance);
+        getTransactionHistory();
     }   
     
     private void getTransactionHistory() {
@@ -87,17 +86,16 @@ public class TransactionsController implements Initializable {
         
         try{
             stmt = conn.createStatement();
-            //query = "SELECT * FROM users;";
-            query = "SELECT user_name, t.* FROM transaction t, users u, account a"
-                    + " where t_user_id=user_id and a.account_id=t.account_id "
-                    + "and a.account_number=\""+ account_number_label.getText()
-                    +"\" and user;";
+            query = "SELECT u.user_name, t.* FROM transaction t, users u, account a"
+                    + " WHERE t_user_id=user_id AND a.account_id=t.account_id "
+                    + "AND a.account_number=\""+ accountNum
+                    +"\";";
             
             rs = stmt.executeQuery(query);
             
             while(rs.next()){
-                transList.add(new Transaction(rs.getString(6), rs.getString(5),
-                        rs.getString(4), rs.getString(3)));
+                transList.add(new Transaction(rs.getString(1), rs.getString(6),
+                        rs.getString(5), rs.getString(4)));
             }
                                   
         } catch(SQLException ex){
@@ -126,16 +124,6 @@ public class TransactionsController implements Initializable {
             transaction_table.setItems(transList);
         } 
     }
-//    @FXML
-//    private void handleBackToAccounts(ActionEvent event) throws IOException{
-////        Stage stage;
-////        Parent root;
-////        
-////        stage = (Stage) login_button.getScene().getWindow();
-////        root = FXMLLoader.load(getClass().getResource("/fxml/accounts.fxml"));
-////        Scene scene = new Scene(root);
-////        stage.setScene(scene); 
-////        stage.show();
-//    }
+
     
 }

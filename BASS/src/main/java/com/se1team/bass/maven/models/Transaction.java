@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.se1team.bass.maven;
+package com.se1team.bass.maven.models;
 
 import javafx.beans.property.SimpleStringProperty;
 

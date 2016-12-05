@@ -50,6 +50,8 @@ public class AccountsController implements Initializable {
     @FXML
     private ChoiceBox<String> page_choice;
     @FXML
+    private ChoiceBox<String> loan_choice;
+    @FXML
     private Label account_name;
     @FXML
     private Label account_number_label;
@@ -106,22 +108,19 @@ public class AccountsController implements Initializable {
         else{
             go_to_label.setText("Please select an appropriate value!");
             return;
-        }
-                   
-//        try{
-            System.out.println(""+ accout_type_label.getText()+ 
-                    account_number_label.getText()+ balance_label.getText());
-            FXMLLoader loader = new FXMLLoader();
-            root = loader.load(getClass().getResource(pageName).openStream());
-            TransactionsController transController = (TransactionsController)loader.getController();
-            transController.getAccoutInfo(accout_type_label.getText(),
-                account_number_label.getText(), balance_label.getText());
-            Scene scene = new Scene(root);
-            stage.setScene(scene); 
-            stage.show();
-//        }catch(NullPointerException ex){
-//            go_to_label.setText("Please select an account first");
-//        }
+        }          
+
+        System.out.println(""+ accout_type_label.getText()+ 
+                account_number_label.getText()+ balance_label.getText());
+        FXMLLoader loader = new FXMLLoader();
+        root = loader.load(getClass().getResource(pageName).openStream());
+        TransactionsController transController = (TransactionsController)loader.getController();
+        transController.getAccoutInfo(accout_type_label.getText(),
+            account_number_label.getText(), balance_label.getText());
+        Scene scene = new Scene(root);
+        stage.setScene(scene); 
+        stage.show();
+
     }
     
     @FXML
@@ -228,34 +227,83 @@ public class AccountsController implements Initializable {
     }
     
     @FXML
+    private void handleLoanChangeAction(ActionEvent event) throws IOException{
+        
+        String loanName = loan_choice.getValue();
+        DbConnection dc = new DbConnection();
+        Connection conn = dc.Connect();
+        Statement stmt = null;
+        String query = null;
+        
+        try{
+            stmt = conn.createStatement();
+            query = "SELECT * \n" +
+                    "FROM loan\n" +
+                    "WHERE loan_type=\""+ loanName +"\";";
+            
+            rs = stmt.executeQuery(query);
+            
+            while(rs.next()){
+                //account_name.setText("David Carter");
+                loan_type_label.setText(rs.getString(3));
+                loan_balance_label.setText(rs.getString(4));
+                payment_due_label.setText(rs.getString(5));
+                due_date_label.setText(rs.getString(6));
+            }
+                                  
+        } catch(SQLException ex){
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {               
+                if (rs != null)
+                    rs.close();  
+                if (stmt != null)
+                    stmt.close();
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException ex) {                
+                Logger.getLogger(LoginController.class.getName()).
+                        log(Level.WARNING, ex.getMessage(), ex);                
+            }
+        } 
+    }
+    
+    
+    @FXML
     private void handleSearchAction(ActionEvent event) throws IOException{
         System.out.println("HERE");
         DbConnection dc = new DbConnection();
         Connection conn = dc.Connect();
         String lastName = search_text.getText();
         Statement stmt = null;
+        Statement stmt2 = null;
         String query = null;
-        
+        account_choice.getItems().removeAll(account_choice.getItems());
         try{
             stmt = conn.createStatement();
-            //query = "SELECT * FROM users;";
             query = "SELECT account_id, account_number, account_type, balance "
                     + "FROM account where user_id_fk=(select user_id from users"
-                    + " where last_name=\"" + lastName + "\");";
-             
-            account_name.setText("David Carter");
-            loan_type_label.setText("WellsFargoStudentLoan");
-            loan_balance_label.setText("12500.10");
-            payment_due_label.setText("30.50");
-            due_date_label.setText("2017-01-25");
+                    + " where last_name=\"" + lastName + "\");";  
+            
             rs = stmt.executeQuery(query);
             
             while(rs.next()){
-                account_choice.getItems().add(rs.getString(3));
-                for(int i = 1; i <= 4; i++)
-                    System.out.print(rs.getString(i)+" "); 
-                System.out.println("");            
+                account_choice.getItems().add(rs.getString(3));            
             }
+            
+            stmt2 = conn.createStatement();
+            query = "SELECT u.first_name, u.last_name, l.* \n" +
+                    "FROM loan l, users u\n" +
+                    "WHERE user_id_fk= user_id\n" +
+                    "AND u.last_name = \""+lastName+"\";";
+            rs = stmt2.executeQuery(query);
+            while(rs.next()){
+                //displays name
+                account_name.setText((rs.getString(1)+" "+ rs.getString(2)));
+                
+                //adds to choice box
+                loan_choice.getItems().add(rs.getString(5));
+            }    
                                   
         } catch(SQLException ex){
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
